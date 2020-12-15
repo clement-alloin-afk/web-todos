@@ -1,23 +1,31 @@
 <template>
 	<div class="todos">
 		<Navbar></Navbar>
-		<div class="container py-5 bg-light">
-			<div class="newTodo">
-				<h1>New Todo</h1>
-				<form action="" method="post" @submit.prevent="submitForm">
-					<p v-if="error">
-						<b>Champs vide</b>
-					</p>
-					<input placeholder="Test" id="todoValue" type="text" name="newTodoValue">
-                    <input class="button" type="submit" value="Ajouter">
-				</form>
-			</div>
-			<div class="todoList">
-				<div v-for="todos in APIData" :key="todos.uuid" class="col-md-4">
-					<p class="todos-value">{{todos.value}}</p>
+		<div class="container py-3 bg-light">
+			<section>
+				<div class="row justify-content-center mt-4">
+					<form action="" method="post" v-on:submit.prevent="addNewTodo">
+						<input v-model="newTodo" class="mr-1" placeholder="Description" />
+						<input class="button" type="submit" value="Ajouter">
+						<p v-if="champsVide">Champs vide !</p>
+					</form>
 				</div>
-				
-			</div>
+			</section>
+			<ul class="todo-list justify-content-center">
+				<li v-for="todo in APIData" class="todo" :key="todo.uuid">
+					<div class="row align-items-center">
+						<del v-if="todo.checked" class="col-sm-8">
+							<input class="m-4" type="checkbox" v-on:click.prevent="check(todo)" checked>
+							{{ todo.value }}
+						</del>
+						<span v-else class="col-sm-8">
+							<input class="m-4" type="checkbox" v-on:click.prevent="check(todo)" >
+							{{ todo.value }}
+						</span>
+						<button v-on:click.prevent="deleteTodo(todo)" type="button" class="btn btn-secondary btn-sm">X</button>
+					</div>
+				</li>
+			</ul>
 		</div>
 	</div>
 </template>
@@ -30,7 +38,8 @@
 		name: 'Todos',
 		data() {
 			return {
-				error: false
+				champsVide: false,
+				newTodo: null
 			}
 		},
 		components: {
@@ -49,12 +58,37 @@
 				})
 		},
 		methods: {
-			submitForm(){
-                console.log("owner : "+this.$)
-                if(! this.newTodoValue){
-                    this.error = true
-                    return
-                }
+			addNewTodo(){
+				if(this.newTodo){
+					getAPI.post('/todos/',
+						{ value: this.newTodo,checked: false },
+						{ headers: {Authorization: 'Bearer ' + this.$store.state.accessToken } },
+					)
+					.then(response => {
+						let newTodo = response.data
+						this.APIData.push(newTodo)
+						this.newTodo = null
+					})
+					this.champsVide = false
+				}
+				else {
+					this.champsVide = true
+				}
+			},
+			deleteTodo (todo) {
+				getAPI.delete('/todo/'+todo.uuid+'/',
+					{ headers: {Authorization: 'Bearer ' + this.$store.state.accessToken}},
+				);
+				this.APIData.splice(this.APIData.indexOf(todo), 1)
+			},
+			check(todo) {
+				console.log("allooo")
+				todo.checked = !todo.checked;
+				console.log(todo.checked)
+				getAPI.patch('/todo/'+todo.uuid+'/',
+					{ value: todo.value , checked: todo.checked },
+					{ headers: {Authorization: 'Bearer ' + this.$store.state.accessToken}},
+				);
 			}
 		},
 	}
@@ -62,5 +96,21 @@
 
 <style scoped>
 	
-
+	.todo-list {
+		margin: 20px 30px ;
+		margin-left: 200px ;
+		justify-content: center ;
+		list-style: none;
+	}
+	.todo-list li {
+		font-size: 28px;
+	}
 </style>
+
+
+<!--
+input::input-placeholder {
+		font-weight: 400;
+		color: #ddd;
+	}
+-->

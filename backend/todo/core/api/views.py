@@ -16,3 +16,13 @@ class TodoList(generics.ListCreateAPIView):
 		if not user.is_authenticated:
 			return Todo.objects.none()
 		return Todo.objects.filter(owner=user)
+
+	def perform_create(self, serializer):
+		serializer.save(owner=self.request.user)
+
+
+class TodoSingle(generics.RetrieveUpdateDestroyAPIView):
+	permission_classes = (permissions.IsAuthenticated, )
+	queryset = Todo.objects.all()
+	serializer_class = TodoSerializer
+	lookup_field = 'uuid'

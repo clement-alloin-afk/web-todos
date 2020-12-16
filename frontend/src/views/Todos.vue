@@ -5,7 +5,7 @@
 			<section>
 				<div class="row justify-content-center mt-4">
 					<form action="" method="post" v-on:submit.prevent="addNewTodo">
-						<input v-model="newTodo" class="mr-1" placeholder="Description" />
+						<input v-model="newTodo" class="input-value mr-1" placeholder="Description" />
 						<input class="button" type="submit" value="Ajouter">
 						<p v-if="champsVide">Champs vide !</p>
 					</form>
@@ -15,14 +15,14 @@
 				<li v-for="todo in APIData" class="todo" :key="todo.uuid">
 					<div class="row align-items-center">
 						<del v-if="todo.checked" class="col-sm-8">
-							<input class="m-4" type="checkbox" v-on:click.prevent="check(todo)" checked>
+							<input class="checkbox m-4" type="checkbox" v-on:click.prevent="check(todo)" checked>
 							{{ todo.value }}
 						</del>
 						<span v-else class="col-sm-8">
-							<input class="m-4" type="checkbox" v-on:click.prevent="check(todo)" >
+							<input class="checkbox m-4" type="checkbox" v-on:click.prevent="check(todo)" >
 							{{ todo.value }}
 						</span>
-						<button v-on:click.prevent="deleteTodo(todo)" type="button" class="btn btn-secondary btn-sm">X</button>
+						<button v-on:click.prevent="deleteTodo(todo)" type="button" class="btn-delete btn-secondary btn-sm">X</button>
 					</div>
 				</li>
 			</ul>

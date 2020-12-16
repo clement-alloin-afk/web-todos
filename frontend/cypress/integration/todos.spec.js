@@ -1,10 +1,8 @@
 describe('Tests CRUD todos', () => {
 	beforeEach(() => {
 		cy.visit('/')
-		cy.get('.username-input')
-		.type('visitor')
-		cy.get('.password-input')
-		.type('visitor')
+		cy.get('.username-input').type('visitor')
+		cy.get('.password-input').type('visitor')
 		cy.get('.btn-connexion')
 		.click()
 
@@ -32,8 +30,7 @@ describe('Tests CRUD todos', () => {
 			cy.get('.todo-list li')
 			.last()
 			.find('.btn-delete')
-			.click() 
+			.click()
 		})
 	})
-
 })

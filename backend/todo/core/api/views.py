@@ -20,9 +20,10 @@ class TodoList(generics.ListCreateAPIView):
 	def perform_create(self, serializer):
 		serializer.save(owner=self.request.user)
 
+    
 
 class TodoSingle(generics.RetrieveUpdateDestroyAPIView):
-	permission_classes = (permissions.IsAuthenticated, )
 	queryset = Todo.objects.all()
+	permission_classes = (permissions.IsAuthenticated, )
 	serializer_class = TodoSerializer
 	lookup_field = 'uuid'

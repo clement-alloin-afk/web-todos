@@ -5,15 +5,15 @@
       <div class="col-md-5 p-3 login justify-content-md-center">
         <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
 
-        <p v-if="incorrectAuth">Incorrect username or password entered - please try again</p>
+        <p v-if="incorrectAuth"> - Mauvais identifiants -</p>
         <form v-on:submit.prevent="login">
           <div class="form-group">
-            <input type="text" name="username" id="user" v-model="username" class="form-control" placeholder="Username">
+            <input type="text" name="username" id="user" v-model="username" class="username-input form-control" placeholder="Username">
           </div>
           <div class="form-group">
-            <input type="password" name="password" id="pass" v-model="password" class="form-control" placeholder="Password">
+            <input type="password" name="password" id="pass" v-model="password" class="password-input form-control" placeholder="Password">
           </div>
-          <button type="submit" class="btn btn-lg btn-primary btn-block">Login</button>
+          <button type="submit" class="btn-connexion btn btn-lg btn-primary btn-block">Login</button>
         </form>
         
       </div>

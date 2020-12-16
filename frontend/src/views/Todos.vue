@@ -11,7 +11,7 @@
 					</form>
 				</div>
 			</section>
-			<ul class="todo-list justify-content-center">
+			<ul class="todo-list">
 				<li v-for="todo in APIData" class="todo" :key="todo.uuid">
 					<div class="row align-items-center">
 						<del v-if="todo.checked" class="col-sm-8">
@@ -108,9 +108,3 @@
 </style>
 
 
-<!--
-input::input-placeholder {
-		font-weight: 400;
-		color: #ddd;
-	}
--->

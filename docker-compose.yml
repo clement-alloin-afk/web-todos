@@ -1,12 +1,39 @@
-
 version: '3.7'
 
 services:
   backend:
     build: 
+      context: frontend
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn todo.config.wsgi --bind 0.0.0.0:8000
     ports:
       - 8000:8000
     env_file:
       - ./.env.dev
+
+  frontend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    volumes:
+      - build_folder:/frontend/build
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:8080
+    volumes:
+      - build_folder:/var/www/frontend
+    depends_on:
+      - backend
+      - frontend
+
+  db:
+    image: postgres:12.0-alpine
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  build_folder:

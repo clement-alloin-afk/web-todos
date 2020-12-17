@@ -9,8 +9,12 @@ class TodoAPITest(TestCase):
 		self.assertEqual(1, x)
 
 	def test_connexion(self) :
-		response = self.client.post('/api/token/' , {"username": "visitor", "password": "visitor"})
+		response = self.client.post('/api/token/' , {"username": "visitor", "password": "visitor"}, format="json")
 		self.assertEqual(response.status_code, 200, response)
+
+	def test_sans_id(self):
+		response = self.client.post('/api/token/')
+		self.assertEqual(response.status_code, 400, response)
 
 	def test_mauvais_id(self):
 		response = self.client.post('/api/token/' , {"username": "mauvais", "password": "faux"})

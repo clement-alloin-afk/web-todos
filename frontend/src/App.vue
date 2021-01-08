@@ -12,9 +12,9 @@ export default {
 </script>
 
 <style>
-#app {
-  margin: 0;
-  padding: 0;
-  background-color: #ffffff;
-}
+	#app {
+		margin: 0;
+		padding: 0;
+	}
+
 </style>

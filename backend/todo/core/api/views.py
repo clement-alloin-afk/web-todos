@@ -3,7 +3,7 @@ from rest_framework import permissions
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from todo.core.base.models import Todo
-from .serializers import TodoSerializer	
+from .serializers import TodoSerializer, DescrTodoSerializer
 
 
 class TodoList(generics.ListCreateAPIView):

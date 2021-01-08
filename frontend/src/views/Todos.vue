@@ -5,14 +5,14 @@
 			<section>
 				<div class="row justify-content-center mt-4">
 					<form action="" method="post" v-on:submit.prevent="addNewTodo">
-						<input v-model="newTodo" class="input-value mr-1" placeholder="Description" />
+						<input v-model="newTodo" class="input-value mr-1" placeholder="Valeur" />
 						<input class="button" type="submit" value="Ajouter">
 						<p v-if="champsVide">Champs vide !</p>
 					</form>
 				</div>
 			</section>
-			<ul class="todo-list">
-				<li v-for="todo in APIData" class="todo" :key="todo.uuid">
+			<ul class="todo-list ">
+				<li v-for="todo in APIData" class="todo" :key="todo.uuid">	
 					<div class="row align-items-center">
 						<del v-if="todo.checked" class="col-sm-8">
 							<input class="checkbox m-4" type="checkbox" v-on:click.prevent="check(todo)" checked>
@@ -22,6 +22,7 @@
 							<input class="checkbox m-4" type="checkbox" v-on:click.prevent="check(todo)" >
 							{{ todo.value }}
 						</span>
+						<button v-on:click.prevent="infoTodo(todo)" type="button" class="btn-info btn-info btn-sm mr-2">Info</button>
 						<button v-on:click.prevent="deleteTodo(todo)" type="button" class="btn-delete btn-secondary btn-sm">X</button>
 					</div>
 				</li>
@@ -51,7 +52,6 @@
 				.then(response => {
 					console.log('Receiving data')
 					this.$store.state.APIData = response.data
-					console.log(response.data)
 				})
 				.catch(err => {
 					console.log(err) 
@@ -82,13 +82,14 @@
 				this.APIData.splice(this.APIData.indexOf(todo), 1)
 			},
 			check(todo) {
-				console.log("allooo")
 				todo.checked = !todo.checked;
-				console.log(todo.checked)
 				getAPI.patch('/todo/'+todo.uuid+'/',
 					{ value: todo.value , checked: todo.checked },
 					{ headers: {Authorization: 'Bearer ' + this.$store.state.accessToken}},
 				);
+			},
+			infoTodo (todo) {
+				this.$router.push({ name: 'todoSingle', params: { todo} })
 			}
 		},
 	}
@@ -101,10 +102,19 @@
 		margin-left: 200px ;
 		justify-content: center ;
 		list-style: none;
+		
 	}
 	.todo-list li {
-		font-size: 28px;
+		font-size: 32px;
 	}
+
+	.container{
+		border-style: solid;
+		border-width: 1px ;
+		border-radius: 80px ;
+		background-image: linear-gradient(to bottom right, #A6EAE6,#C1F9B5);
+	}
+	
 </style>
 
 

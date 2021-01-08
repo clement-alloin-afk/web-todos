@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 import uuid
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -27,3 +28,12 @@ class User(AbstractUser):
 
 	def __str__(self):
 		return self.username
+
+
+class DescrTodo(models.Model):
+	description = models.TextField()
+	update_date = models.DateTimeField(auto_now=True)
+	todo = models.ForeignKey(Todo, related_name='descriptions', on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.description

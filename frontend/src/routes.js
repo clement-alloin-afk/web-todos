@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Todos from './views/Todos'
 import Login from './views/Login'
 import Logout from './views/Logout'
+import TodoSingle from './views/TodoSingle'
 
 Vue.use(VueRouter)
 
@@ -28,5 +29,13 @@ export default new VueRouter({
 		name: 'logout',
 		component: Logout,
 		},
+		{
+		path: '/todo',
+		name: 'todoSingle',
+		component: TodoSingle,
+		meta: {
+			requiresLogin: true
+			}
+		}
 	]
 })

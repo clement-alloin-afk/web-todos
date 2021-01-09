@@ -50,7 +50,6 @@
 		created () {
 			getAPI.get('/todos/', {headers: {Authorization: `Bearer ${this.$store.state.accessToken}`}})
 				.then(response => {
-					console.log('Receiving data')
 					this.$store.state.APIData = response.data
 				})
 				.catch(err => {

@@ -17,4 +17,5 @@ RUN pip install psycopg2-binary
 COPY . /backend/
 
 # migrate
+RUN python manage.py makemigrations
 RUN python manage.py migrate

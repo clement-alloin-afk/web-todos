@@ -57,11 +57,10 @@
 		methods: {
 			format_date(value){
 				if (value) {
-					return moment(String(value)).format('MM/DD/YYYY hh:mm')
+					return moment(String(value)).format('DD/MM/YYYY hh:mm')
 					}
 				},
 			addDescr(){
-				console.log(this.todo.descriptions) ;
 					if(this.newDescri){
 						getAPI.patch('/todo/'+this.todo.uuid+'/',
 							{ value: this.todo.value , descriptions : [{description : this.newDescri}]},

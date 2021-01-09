@@ -11,10 +11,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "2jy2t6721g@01oyp!=$xtk^btozs46j(9=stqzbg+=+%$4md#&"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Prod
+DEBUG = False
+ALLOWED_HOSTS = ['calloin.labo.infohers.org']
+#Dev
+# DEBUG = True
+# ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'TodoBase.User'
 
@@ -76,30 +79,20 @@ WSGI_APPLICATION = "todo.config.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    #Celui de base frérot
+    # Celle de base
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 
-    #Test 1
+    # Celle pour postgresql
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
     #     'NAME': 'postgres',
     #     'USER': 'postgres',
     #     'PASSWORD': 'postgres',
-    #     'HOST': 'db',
-    #     'PORT': 5432,
-    # }
-
-    #Test 2
-    # "default": {
-    #     "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
-    #     "NAME": os.environ.get("SQL_DATABASE", os.path.join(BASE_DIR, "db.sqlite3")),
-    #     "USER": os.environ.get("SQL_USER", "user"),
-    #     "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
-    #     "HOST": os.environ.get("SQL_HOST", "localhost"),
-    #     "PORT": os.environ.get("SQL_PORT", "5432"),
+    #     'HOST': 'database',
+    #     'PORT': '5432',
     # }
 }
 

@@ -25,9 +25,9 @@
 						<button v-on:click.prevent="deleteTodo()" type="button" class="btn-delete btn-secondary btn-sm">X</button>
 					</div>
 				</li>
-				<li v-for="descr in todo.descriptions" :key="descr" class="descriptionListe m-2">
+				<li v-for="(descr,index) in todo.descriptions" :key="index" class="descriptionListe m-2">
 					<div class="description">{{ descr.description }}</div>
-					<div class="date ">{{ descr.update_date }}</div>
+					<div class="date ">{{ format_date(descr.update_date) }}</div>
 				</li>
 			</ul>
 			<button v-on:click.prevent="back" type="button" class="btn-back btn-info btn-sm">Go Back</button>
@@ -38,6 +38,7 @@
 <script >
 	import { getAPI } from '../axios-api'
 	import Navbar from '../components/Navbar'
+	import moment from 'moment'
 	export default {
 		data() {
 			return {
@@ -51,20 +52,25 @@
 		},
 		created() {
 			this.todo = ('Params: ', this.$route.params).todo ;
-
+			this.todo.descriptions.reverse() ;
 		},
 		methods: {
+			format_date(value){
+				if (value) {
+					return moment(String(value)).format('MM/DD/YYYY hh:mm')
+					}
+				},
 			addDescr(){
 				console.log(this.todo.descriptions) ;
 					if(this.newDescri){
-						getAPI.put('/todo/'+this.todo.uuid+'/',
+						getAPI.patch('/todo/'+this.todo.uuid+'/',
 							{ value: this.todo.value , descriptions : [{description : this.newDescri}]},
 							{ headers: {Authorization: 'Bearer ' + this.$store.state.accessToken } },
 						)
 						.then(response => {
 							this.todo = response.data
-							console.log(response) ;
-							console.log(this.todo.descriptions) ;
+							this.newDescri = null
+							this.todo.descriptions.reverse() ;
 						})
 						
 						this.champsVide = false
@@ -92,6 +98,14 @@
 		}
 	}
 </script>
+
+
+
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('MM/DD/YYYY hh:mm')
+    }
+});
 
 <style scoped>
 	

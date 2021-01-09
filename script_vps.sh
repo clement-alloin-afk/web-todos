@@ -10,8 +10,6 @@ sudo apt-get update
 
 # Install fail2ban + Config
 sudo apt-get install fail2ban
-
-
 sudo sed -i "s/^findtime.*/findtime = 600/" /etc/fail2ban/jail.conf
 sudo sed -i "s/^maxretry.*/maxretry = 3/" /etc/fail2ban/jail.conf
 

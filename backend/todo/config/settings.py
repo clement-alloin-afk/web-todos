@@ -12,11 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = "2jy2t6721g@01oyp!=$xtk^btozs46j(9=stqzbg+=+%$4md#&"
 
 # Prod
-DEBUG = False
-ALLOWED_HOSTS = ['calloin.labo.infohers.org']
+# DEBUG = False
+# ALLOWED_HOSTS = ['calloin.labo.infohers.org']
 #Dev
-# DEBUG = True
-# ALLOWED_HOSTS = ['*']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 
 AUTH_USER_MODEL = 'TodoBase.User'
@@ -49,7 +49,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    "http://calloin.labo.infohers.org:8080",
+    #"http://calloin.labo.infohers.org:8080",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
 )
 
 
@@ -79,20 +81,20 @@ WSGI_APPLICATION = "todo.config.wsgi.application"
 
 DATABASES = {
     # Celle de base
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
 
     # Celle pour postgresql
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'postgres',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'postgres',
-    #     'HOST': 'database',
-    #     'PORT': '5432',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'database',
+        'PORT': '5432',
+    }
 }
 
 

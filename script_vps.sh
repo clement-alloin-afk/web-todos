@@ -4,7 +4,7 @@ cd ..
 sudo su # Dans le root ou pas ?
 
 #Changement de port
-sed -i "s/^Port.*/Port /" /etc/ssh/sshd_config
+sed -i "s/^Port.*/Port 2222/" /etc/ssh/sshd_config
 systemctl restart sshd.service
 
 exit

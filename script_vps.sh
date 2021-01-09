@@ -28,6 +28,6 @@ sudo iptables -P INPUT DROP
 sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 
-sudo cd web-todos/
+cd web-todos/
 sudo chmod +x /usr/local/bin/docker-compose;
-sudo docker-compose up --build
+docker-compose up --build

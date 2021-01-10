@@ -1,4 +1,4 @@
-FROM python:3.7.3
+FROM python:3.9-alpine
 
 # set work directory
 WORKDIR /backend
@@ -8,14 +8,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install dependencies
+RUN apk update \
+    && apk add postgresql-dev gcc python3-dev musl-dev
 RUN pip install --upgrade pip
 COPY requirements.txt /backend
 RUN pip install -r requirements.txt
-RUN pip install psycopg2-binary
 
 # copy project
 COPY . /backend/
 
-# migrate
-RUN python manage.py makemigrations
-RUN python manage.py migrate
+ENTRYPOINT ["/backend/entrypoint.sh"]

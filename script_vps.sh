@@ -2,6 +2,9 @@
 
 cd ..
 
+sudo useradd -m -U clement -s /bin/bash
+udo usermod -aG docker root
+
 #Changement de port
 sudo sed -i "s/^Port.*/Port 2222/" /etc/ssh/sshd_config
 sudo systemctl restart sshd.service

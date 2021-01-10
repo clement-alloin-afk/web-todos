@@ -12,11 +12,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = "2jy2t6721g@01oyp!=$xtk^btozs46j(9=stqzbg+=+%$4md#&"
 
 # Prod
-# DEBUG = False
-# ALLOWED_HOSTS = ['calloin.labo.infohers.org']
+DEBUG = False
+ALLOWED_HOSTS = ['calloin.labo.infohers.org']
 #Dev
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+#DEBUG = True
+#ALLOWED_HOSTS = ['*']
 
 
 AUTH_USER_MODEL = 'TodoBase.User'
@@ -49,9 +49,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    #"http://calloin.labo.infohers.org:8080",
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
+    "http://calloin.labo.infohers.org:8080",
+    #"http://localhost:8080",
+    #"http://127.0.0.1:8080",
 )
 
 
@@ -152,7 +152,3 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )   
 }
-
-# DATETIME_FORMAT="%Y-%m-%d%H:%M:%S"
-# L10N=False
-# USE_TZ=False

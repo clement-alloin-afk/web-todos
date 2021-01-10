@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd ..
-
 sudo useradd -m -U clement -s /bin/bash
 udo usermod -aG docker root
 
@@ -30,5 +28,5 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-
 
 
 cd web-todos/
-sudo chmod +x /usr/local/bin/docker-compose;
-docker-compose up --build
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose up --build -d
